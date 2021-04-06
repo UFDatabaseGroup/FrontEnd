@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import Login from "./components/login.component";
 import SignUp from "./components/signup.componenet";
+import QuerySelection from "./components/QuerySelection.component";
+import DataDisplay from "./components/data-display.component";
 
 function App() {
   return (<Router>
@@ -26,15 +27,13 @@ function App() {
           </div>
         </nav>
 
-        <div className="auth-wrapper">
-          <div className="auth-inner">
-            <Switch>
-              <Route exact path='/' component={Login} />
-              <Route path="/sign-in" component={Login} />
-              <Route path="/sign-up" component={SignUp} />
-            </Switch>
-          </div>
-        </div>
+        <Switch>
+          <Route exact path='/' component={Login} />
+          <Route path="/sign-in" component={Login} />
+          <Route path="/sign-up" component={SignUp} />
+          <Route path="/query-select" component={QuerySelection} />
+          <Route path="/trend-query" component={DataDisplay} />
+        </Switch>
       </div></Router>
   );
 }
