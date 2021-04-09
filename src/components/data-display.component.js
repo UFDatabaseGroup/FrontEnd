@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Chart } from "chart.js"
-import classes from ".."
+import { Chart, Utils } from "chart.js"
 
 export default class DataDisplay extends Component {
     myRef = React.createRef();
@@ -12,13 +11,13 @@ export default class DataDisplay extends Component {
             type: "line",
             data: {
                 //Bring in data
-                labels: ["Jan", "Feb", "March"],
-                datasets: [
-                    {
-                        label: "Sales",
-                        data: [86, 67, 91],
-                    }
-                ]
+                labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+                datasets: [{
+                    label: 'My First dataset',
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 25, 10],
+                }]
             },
             options: {
                 //Customize chart options
