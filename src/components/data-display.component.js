@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Chart, Utils } from "chart.js"
+import {Chart, LineController, LineElement, PointElement, LinearScale, Title, CategoryScale} from 'chart.js';
+
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale);
 
 export default class DataDisplay extends Component {
     myRef = React.createRef();
