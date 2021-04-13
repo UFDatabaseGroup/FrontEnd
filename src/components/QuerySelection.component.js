@@ -11,7 +11,6 @@ export default class QuerySelection extends Component {
     }
 
     handleSubmit = async (params) => {
-        console.log("Hello Button Submit")
         const response = await axios.post('http://localhost:3005/trend-queries/1');
         this.setState({ toDataDisplay: (await response).data });
 
@@ -23,6 +22,8 @@ export default class QuerySelection extends Component {
                 <div className="auth-wrapper">
                     <div className="auth-inner">
                         <DataDisplay/>
+                        <button type="button" className="btn btn-block btn-info btn-sm" onClick={
+                            e => {this.setState({ toDataDisplay: false })}}>Go Back to Query Selection</button>
                     </div>
                 </div>
             )
@@ -37,7 +38,8 @@ export default class QuerySelection extends Component {
                             from covid_data
                             where country = 'United States' and state = 'Florida'
                             group by timestamp</p>
-                        <button type="button" className="btn btn-outline-danger btn-block" onClick={this.handleSubmit}>Press to Run Query</button>
+                        <button type="button" className="btn btn-outline-danger btn-block" onClick={
+                            this.handleSubmit}>Press to Run Query</button>
                     </form>
                 </div>
             </div>

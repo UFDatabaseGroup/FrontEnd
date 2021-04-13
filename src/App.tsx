@@ -13,14 +13,13 @@ function App() {
   const [token, setToken] = useState();
   const [querySubmitted, SetQuerySubmit] = useState();
 
-  /*
   if(!token) {
     return <Login setToken={setToken}/>
   }
 
   if(querySubmitted) {
     return <QuerySelection/>
-  }*/
+  }
 
   return (
     <div className="App">
