@@ -6,14 +6,26 @@ export default class QuerySelection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toDataDisplay: false
+            toDataDisplay: false,
+            queryNum: 1
         };
     }
 
     handleSubmit = async (params) => {
-        const response = await axios.post('http://localhost:3005/trend-queries/1');
-        this.setState({ toDataDisplay: (await response).data });
-
+        await axios.get('http://localhost:3005/trend-queries/1', {
+            params: {
+                country: "United States",
+                start_time: 0,
+                end_time: 99999999999999
+            }
+        }).then((res) => {
+            this.setState({
+                toDataDisplay: true,
+                chartData: res.data.result,
+                querynum: 1
+            });
+            console.log(res.data.result)
+        });
     }
 
     render() {
@@ -21,7 +33,7 @@ export default class QuerySelection extends Component {
             return (
                 <div className="auth-wrapper">
                     <div className="auth-inner">
-                        <DataDisplay/>
+                        <DataDisplay trendQuery={this.state.querynum} apiData={this.state.chartData}/>
                         <button type="button" className="btn btn-block btn-info btn-sm" onClick={
                             e => {this.setState({ toDataDisplay: false })}}>Go Back to Query Selection</button>
                     </div>

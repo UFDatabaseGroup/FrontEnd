@@ -8,23 +8,23 @@ export default class DataDisplay extends Component {
 
     componentDidMount() {
         const myChartRef = this.myRef.current.getContext("2d");
-
-        new Chart(myChartRef, {
-            type: "line",
-            data: {
-                //Bring in data
-                labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
-                datasets: [{
-                    label: 'My First dataset',
-                    // backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [0, 10, 5, 2, 20, 25, 10],
-                }]
-            },
-            options: {
-                //Customize chart options
-            }
-        });
+        if (this.props.trendQuery === 1) {
+            new Chart(myChartRef, {
+                type: "line",
+                data: {
+                    //Bring in data
+                    labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+                    datasets: [{
+                        label: 'My First dataset',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [1,2,2],
+                    }]
+                },
+                options: {
+                    //Customize chart options
+                }
+            });
+        }
     }
 
     render() {

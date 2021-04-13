@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {Link, Switch, Route, BrowserRouter} from 'react-router-dom'
+import {Link, Switch, Route} from 'react-router-dom'
 
 import Login from "./components/login.component";
 import SignUp from "./components/signup.componenet";
@@ -25,7 +25,7 @@ function App() {
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <div className="container">
-          <a className="navbar-brand">Group 8</a>
+          <button disabled className="navbar-brand btn">Group 8</button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
