@@ -134,7 +134,7 @@ export default class DataDisplay extends Component {
                 });
 
 
-                let tension_choice= 1;
+                let tension_choice = 1;
 
                 new ChartJs.Chart(myChartRef, {
                     type: "line",
@@ -328,14 +328,20 @@ export default class DataDisplay extends Component {
                             label: 'DEATHS CONTRIBUTED',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                            xAxisID: 'x',
+                            yAxisID: 'percent'
                         }, {
                             label: 'DEATHS COUNTRY',
                             borderColor: 'rgb(3, 252, 132)',
                             data: chartData_Country,
+                            xAxisID: 'x',
+                            yAxisID: 'count'
                         }, {
                             label: 'DEATHS WORLDWIDE',
                             borderColor: 'rgb(132, 3, 252)',
                             data: chartData_World,
+                            xAxisID: 'x',
+                            yAxisID: 'count'
                         }],
 
                     },
@@ -347,26 +353,28 @@ export default class DataDisplay extends Component {
                         scales: {
                             x: {
                                 display: true,
+                                position: 'left',
                                 title: {
                                     display: true,
                                     text: 'Number of Days since Start'
                                 }
                             },
-                            y: [{
+                            count: {
+                                display: true,
+                                position: 'left',
+                                title: {
                                     display: true,
-                                    title: {
-                                        display: true,
-                                        text: 'Confirmed Cases'
-                                    }
-
-                                }, {
+                                    text: 'Confirmed Cases'
+                                }
+                            },
+                            percent: {
+                                display: true,
+                                position: 'right',
+                                title: {
                                     display: true,
-                                    z: 1,
-                                    title: {
-                                        display: true,
-                                        text: 'Confirmed Cases 2'
-                                    }
-                                }]
+                                    text: 'Confirmed Cases 2'
+                                }
+                            }
                         }
                     }
                 });
