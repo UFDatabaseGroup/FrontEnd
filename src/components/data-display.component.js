@@ -268,9 +268,15 @@ export default class DataDisplay extends Component {
                 return;
             case "4":
                 chartLabels =[];
-                this.props.apiData.forEach(elem => chartLabels.push(elem.UNEMPLOYMENT_TIME_STAMP));
+                this.props.apiData.forEach(elem => {
+                    let newDate = new Date(elem.UNEMPLOYMENT_TIME_STAMP);
+                    chartLabels.push(newDate.toLocaleDateString())
+                });
                 chartData = [];
-                this.props.apiData.forEach(elem => chartData.push(elem.CONFIRMED));
+                this.props.apiData.forEach(elem => chartData.push(elem.VALUE));
+                let chartData_CaseIncidence = [];
+                this.props.apiData.forEach(elem => chartData_CaseIncidence.push(elem["AVG(AVG_INCIDENCE)"]));
+
 
                 new ChartJs.Chart(myChartRef, {
                     type: "line",
@@ -278,9 +284,13 @@ export default class DataDisplay extends Component {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'Confirmed cases in china',
+                            label: 'Unemployed %',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                        }, {
+                            label: 'Average Case Incidence',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: chartData_CaseIncidence,
                         }],
 
                     },
@@ -291,14 +301,14 @@ export default class DataDisplay extends Component {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Number of Days since Start'
+                                    text: 'Dates'
                                 }
                             },
                             y: {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Confirmed Cases'
+                                    text: 'People Unemployed'
                                 }
                             }
                         }
@@ -364,7 +374,7 @@ export default class DataDisplay extends Component {
                                 position: 'left',
                                 title: {
                                     display: true,
-                                    text: 'Confirmed Cases'
+                                    text: 'Confirmed Deaths'
                                 }
                             },
                             percent: {
@@ -372,7 +382,7 @@ export default class DataDisplay extends Component {
                                 position: 'right',
                                 title: {
                                     display: true,
-                                    text: 'Confirmed Cases 2'
+                                    text: 'Deaths Contributed %'
                                 }
                             }
                         }
@@ -396,7 +406,7 @@ export default class DataDisplay extends Component {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'Confirmed',
+                            label: 'Confirmed Cases',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
                         }, {
@@ -439,9 +449,9 @@ export default class DataDisplay extends Component {
             `What are the total cases, total recovered, and total deaths in ${this.props.country1}?`,
             `How much does population density affect COVID-19 transmission rates in ${this.props.country1}?`,
             `Compare the difference in deaths with the difference in incidence compared to the previous day for ${this.props.country1} over a time period`,
-            `How much did COVID-19 affect unemployment rates (population) in ${this.props.country1}?`,
+            `Unemployment compared to incidence rate by month in ${this.props.country1}?`,
             `Query 5`,
-            `Query 6`];
+            `How many new cases does ${this.props.country1} gain per day?`];
 
         return (
             <div className="auth-wrapper">

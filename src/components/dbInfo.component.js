@@ -12,7 +12,7 @@ export default class DbInfo extends Component {
     componentDidMount() {
         axios.get('http://localhost:3005/').then((res) => {
             console.log(res)
-            this.setState({dbRows: res.data.totalRowCount[0].TOTAL_COUNT});
+            this.setState({dbRows: res.data.totalRowCount});
         });
     }
 

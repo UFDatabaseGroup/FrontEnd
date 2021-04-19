@@ -76,13 +76,13 @@ export default class QuerySelection extends Component {
                             <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a period of time</label><br/>
 
                             <input type="radio" name="queryNum" value="4" checked={this.state.queryNum === "4"} onChange={this.handleChange}/>
-                            <label htmlFor="query-4">How much did COVID-19 affect unemployment rates (population) in REGION during TIMEPERIOD?</label><br/>
+                            <label htmlFor="query-4">Unemployment compared to incidence rate by month in a particular country</label><br/>
 
                             <input type="radio" name="queryNum" value="5" checked={this.state.queryNum === "5"} onChange={this.handleChange}/>
                             <label htmlFor="query-5">QUERY 5</label><br/>
 
                             <input type="radio" name="queryNum" value="6" checked={this.state.queryNum === "6"} onChange={this.handleChange}/>
-                            <label htmlFor="query-6">QUERY 6</label><br/>
+                            <label htmlFor="query-6">How many new cases does a country gain per day?</label><br/>
 
                             <label>Country</label><br/>
                             <input type="text" name="country" onChange={this.handleChange}/><br/>
