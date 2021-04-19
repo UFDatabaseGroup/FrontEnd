@@ -307,9 +307,77 @@ export default class DataDisplay extends Component {
                 return;
             case "5":
                 chartLabels =[];
-                this.props.apiData.forEach(elem => chartLabels.push(elem.TIMESTAMP));
+                this.props.apiData.forEach(elem => chartLabels.push(elem.WORLDTIME));
+                chartData = [];
+                this.props.apiData.forEach(elem => chartData.push(elem.DEATHS_CONTRIBUTED));
+                let chartData_Country = [];
+                this.props.apiData.forEach(elem => chartData_Country.push(elem.DEATHS_WORLDWIDE));
+                let chartData_World = [];
+                this.props.apiData.forEach(elem => chartData_World.push(elem.DEATHS_WORLDWIDE));
+                
+                
+                new ChartJs.Chart(myChartRef, {
+                    type: "line",
+                    data: {
+                        //Bring in data
+                        labels: chartLabels,
+                        datasets: [{
+                            label: 'DEATHS CONTRIBUTED',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: chartData,
+                        }, {
+                            label: 'DEATHS COUNTRY',
+                            borderColor: 'rgb(3, 252, 132)',
+                            data: chartData_Country,
+                        }, {
+                            label: 'DEATHS WORLDWIDE',
+                            borderColor: 'rgb(132, 3, 252)',
+                            data: chartData_World,
+                        }],
+
+                    },
+                    options: {
+                        //Customize chart options
+                        interaction: {
+                            mode: 'index'
+                        },
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Days since Start'
+                                }
+                            },
+                            y: [{
+                                    display: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Confirmed Cases'
+                                    }
+
+                                }, {
+                                    display: true,
+                                    z: 1,
+                                    title: {
+                                        display: true,
+                                        text: 'Confirmed Cases 2'
+                                    }
+                                }]
+                        }
+                    }
+                });
+                return;
+            case "6":
+                chartLabels =[];
+                this.props.apiData.forEach(elem => {
+                    let dateObj = new Date(elem["TIMESTAMP_ID"] * 1000);
+                    chartLabels.push(dateObj.toLocaleDateString());
+                });
                 chartData = [];
                 this.props.apiData.forEach(elem => chartData.push(elem.CONFIRMED));
+                let chartData_Delta = [];
+                this.props.apiData.forEach(elem => chartData_Delta.push(elem.DELTA_CONFIRMED));
 
                 new ChartJs.Chart(myChartRef, {
                     type: "line",
@@ -317,9 +385,13 @@ export default class DataDisplay extends Component {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'Confirmed cases in china',
+                            label: 'Confirmed',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                        }, {
+                            label: 'Delta_Confirmed',
+                            borderColor: 'rgb(180, 99, 50)',
+                            data: chartData_Delta,
                         }],
 
                     },
@@ -355,9 +427,10 @@ export default class DataDisplay extends Component {
         const TitleQuery = [
             `What are the total cases, total recovered, and total deaths in ${this.props.country1}?`,
             `How much does population density affect COVID-19 transmission rates in ${this.props.country1}?`,
-            `Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a time period`,
+            `Compare the difference in deaths with the difference in incidence compared to the previous day for ${this.props.country1} over a time period`,
             `How much did COVID-19 affect unemployment rates (population) in ${this.props.country1}?`,
-            `5`];
+            `Query 5`,
+            `Query 6`];
 
         return (
             <div className="auth-wrapper">

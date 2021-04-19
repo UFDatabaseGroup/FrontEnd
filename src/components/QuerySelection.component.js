@@ -67,19 +67,22 @@ export default class QuerySelection extends Component {
                         <div style={queryStyle}>
                             <h4>Select query from the following selection</h4>
                             <input type="radio" name="queryNum" value="1" checked={this.state.queryNum === "1"} onChange={this.handleChange}/>
-                            <label htmlFor="query-1">How many cases does REGION gain within TIME PERIOD?</label><br/>
+                            <label htmlFor="query-1">What are the total cases, total recovered, and total deaths in a country?</label><br/>
 
                             <input type="radio" name="queryNum" value="2" checked={this.state.queryNum === "2"} onChange={this.handleChange}/>
                             <label htmlFor="query-2">How much does population density affect COVID-19 transmission rates in a region?</label><br/>
 
                             <input type="radio" name="queryNum" value="3" checked={this.state.queryNum === "3"} onChange={this.handleChange}/>
-                            <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a time period</label><br/>
+                            <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a period of time</label><br/>
 
                             <input type="radio" name="queryNum" value="4" checked={this.state.queryNum === "4"} onChange={this.handleChange}/>
                             <label htmlFor="query-4">How much did COVID-19 affect unemployment rates (population) in REGION during TIMEPERIOD?</label><br/>
 
                             <input type="radio" name="queryNum" value="5" checked={this.state.queryNum === "5"} onChange={this.handleChange}/>
                             <label htmlFor="query-5">QUERY 5</label><br/>
+
+                            <input type="radio" name="queryNum" value="6" checked={this.state.queryNum === "6"} onChange={this.handleChange}/>
+                            <label htmlFor="query-6">QUERY 6</label><br/>
 
                             <label>Country</label><br/>
                             <input type="text" name="country" onChange={this.handleChange}/><br/>
