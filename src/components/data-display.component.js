@@ -307,11 +307,14 @@ export default class DataDisplay extends Component {
                 return;
             case "5":
                 chartLabels =[];
-                this.props.apiData.forEach(elem => chartLabels.push(elem.WORLDTIME));
+                this.props.apiData.forEach(elem => {
+                    let dateObj = new Date(elem["WORLDTIME"] * 1000);
+                    chartLabels.push(dateObj.toLocaleDateString());
+                });
                 chartData = [];
                 this.props.apiData.forEach(elem => chartData.push(elem.DEATHS_CONTRIBUTED));
                 let chartData_Country = [];
-                this.props.apiData.forEach(elem => chartData_Country.push(elem.DEATHS_WORLDWIDE));
+                this.props.apiData.forEach(elem => chartData_Country.push(elem.DEATHS_COUNTRY));
                 let chartData_World = [];
                 this.props.apiData.forEach(elem => chartData_World.push(elem.DEATHS_WORLDWIDE));
                 
