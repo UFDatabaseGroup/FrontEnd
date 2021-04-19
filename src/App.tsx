@@ -10,7 +10,7 @@ import DataDisplay from "./components/data-display.component";
 import DbInfo from "./components/dbInfo.component";
 
 function App() {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(); // eslint-disable-next-line
   const [querySubmitted, SetQuerySubmit] = useState();
 
   if(!token) {

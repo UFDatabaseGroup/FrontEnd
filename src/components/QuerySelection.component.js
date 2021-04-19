@@ -8,7 +8,7 @@ export default class QuerySelection extends Component {
         super(props);
         this.state = {
             toDataDisplay: false,
-            queryNum: 3,
+            queryNum: 0,
             chartData: null,
             country: null,
             start_timestamp: "2020-01-01",
@@ -26,8 +26,8 @@ export default class QuerySelection extends Component {
         await axios.get(`http://localhost:3005/trend-queries/${this.state.queryNum}`, {
             params: {
                 country: this.state.country,
-                start_time: 0, //(new Date(this.state.start_timestamp)).getTime(),
-                end_time: 0 // (new Date(this.state.end_timestamp)).getTime()
+                start_time: (new Date(this.state.start_timestamp)).getTime() / 1000,
+                end_time: (new Date(this.state.end_timestamp)).getTime() / 1000
             }
         }).then((res) => {
             console.log(res.data)
