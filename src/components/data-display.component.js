@@ -13,41 +13,37 @@ export default class DataDisplay extends Component {
 
         switch (this.props.trendQuery) {
             case "1":
-                new ChartJs.Chart(myChartRef, {
-                    type: "line",
-                    data: {
-                        //Bring in data
-                        labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
-                        datasets: [{
-                            label: 'My First dataset',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: [1,2,2],
-                        }]
-                    },
-                    options: {
-                        //Customize chart options
-                    }
-                });
-                return;
-            case "2":
                 chartLabels =[];
                 this.props.apiData.forEach(elem => {
                     let dateObj = new Date(elem["TIMESTAMP_ID"] * 1000);
                     chartLabels.push(dateObj.toLocaleDateString());
                 });
                 chartData = [];
-                this.props.apiData.forEach(elem => chartData.push(elem["AVG(COVID_DATA.INCIDENCE)"]));
+                this.props.apiData.forEach(elem => chartData.push(elem["CONFIRMED"]));
+
+                let chartData_Recovered = [];
+                this.props.apiData.forEach(elem => chartData_Recovered.push(elem["RECOVERED"]))
+                let chartData_Deaths = [];
+                this.props.apiData.forEach(elem => chartData_Deaths.push(elem["DEATHS"]))
 
                 new ChartJs.Chart(myChartRef, {
-                    type: "bar",
+                    type: "line",
                     data: {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'Case Incidence In China',
-                            backgroundColor: 'rgb(255, 99, 132)',
+                            label: 'CONFIRMED CASES',
+                            borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
-                        }],
+                        }, {
+                            label: 'CONFIRMED RECOVERED',
+                            borderColor: 'rgb(180, 90, 13)',
+                            data: chartData_Recovered,
+                        }, {
+                            label: 'CONFIRMED DEATHS',
+                            borderColor: 'rgb(180, 45, 12)',
+                            data: chartData_Deaths
+                        }]
                     },
                     options: {
                         //Customize chart options
@@ -56,14 +52,163 @@ export default class DataDisplay extends Component {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Number of Days since Start of Range'
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: false,
+                                    text: 'Case Incidence'
+                                }
+                            }
+                        }
+                    }
+                });
+                break;
+            case "2":
+                /*
+                * query 2: top 10 states in a country and the percent of active cases they have compared to the whole country
+                * display: multiple line graph on active_percent for each state in the top 10 over time
+                * */
+                let states = [];
+                chartLabels = [];
+
+                // Find List of States
+                this.props.apiData.forEach (elem => {
+                    if (states.indexOf(elem["STATE"]) === -1) states.push(elem['STATE']);
+                    let dateObj = new Date(elem["TIMESTAMP_ID"] * 1000);
+                    chartLabels.push(dateObj.toLocaleDateString());
+                });
+
+                console.log(new Date(chartLabels[chartLabels.length - 2]).getTime())
+
+                //this.props.apiData.forEach(elem => {});
+
+                let chartData_State1 = [];
+                let chartData_State2 = [];
+                let chartData_State3 = [];
+                let chartData_State4 = [];
+                let chartData_State5 = [];
+                let chartData_State6 = [];
+                let chartData_State7 = [];
+                let chartData_State8 = [];
+                let chartData_State9 = [];
+                let chartData_State10 = [];
+                this.props.apiData.forEach(elem => {
+                    switch (elem["STATE"]) {
+                        case states[0]:
+                            chartData_State1.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[1]:
+                            chartData_State2.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[2]:
+                            chartData_State3.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[3]:
+                            chartData_State4.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[4]:
+                            chartData_State5.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[5]:
+                            chartData_State6.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[6]:
+                            chartData_State7.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[7]:
+                            chartData_State8.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[8]:
+                            chartData_State9.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        case states[9]:
+                            chartData_State10.push(elem["ACTIVE_PERCENT"]);
+                            break;
+                        default:
+                            console.log(`UNKNOWN STATE FOUND IN API RESPONSE - ${elem["STATE"]}`)
+                            break;
+                    }
+                });
+
+
+                let tension_choice = 1;
+
+                new ChartJs.Chart(myChartRef, {
+                    type: "line",
+                    data: {
+                        //Bring in data
+                        labels: chartLabels,
+                        datasets: [{
+                            label: `Active Case % In ${states[0]}`,
+                            backgroundColor: 'rgb(217,165,137)',
+                            data: chartData_State1,
+                            tension: tension_choice,
+                        }, {
+                            label: `Active Case % In ${states[1]}`,
+                            backgroundColor: 'rgb(139,213,211)',
+                            data: chartData_State2,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[2]}`,
+                            backgroundColor: 'rgb(107,224,104)',
+                            data: chartData_State3,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[3]}`,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: chartData_State4,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[4]}`,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: chartData_State5,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[5]}`,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: chartData_State6,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[6]}`,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: chartData_State7,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[7]}`,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: chartData_State8,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[8]}`,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: chartData_State9,
+                            tension: tension_choice
+                        }, {
+                            label: `Active Case % In ${states[9]}`,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            data: chartData_State10,
+                            tension: tension_choice
+                        }],
+                    },
+                    options: {
+                        //Customize chart options
+                        spanGaps: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Dates'
                                 }
                             },
                             y: {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Case Incidence'
+                                    text: 'Active Cases Percent (%)'
                                 }
                             }
                         }
@@ -123,9 +268,15 @@ export default class DataDisplay extends Component {
                 return;
             case "4":
                 chartLabels =[];
-                this.props.apiData.forEach(elem => chartLabels.push(elem.UNEMPLOYMENT_TIME_STAMP));
+                this.props.apiData.forEach(elem => {
+                    let newDate = new Date(elem.UNEMPLOYMENT_TIME_STAMP);
+                    chartLabels.push(newDate.toLocaleDateString())
+                });
                 chartData = [];
-                this.props.apiData.forEach(elem => chartData.push(elem.CONFIRMED));
+                this.props.apiData.forEach(elem => chartData.push(elem.VALUE));
+                let chartData_CaseIncidence = [];
+                this.props.apiData.forEach(elem => chartData_CaseIncidence.push(elem["AVG(AVG_INCIDENCE)"]));
+
 
                 new ChartJs.Chart(myChartRef, {
                     type: "line",
@@ -133,9 +284,13 @@ export default class DataDisplay extends Component {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'Confirmed cases in china',
+                            label: 'Unemployed %',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                        }, {
+                            label: 'Average Case Incidence',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: chartData_CaseIncidence,
                         }],
 
                     },
@@ -146,14 +301,14 @@ export default class DataDisplay extends Component {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Number of Days since Start'
+                                    text: 'Dates'
                                 }
                             },
                             y: {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Confirmed Cases'
+                                    text: 'People Unemployed'
                                 }
                             }
                         }
@@ -162,9 +317,88 @@ export default class DataDisplay extends Component {
                 return;
             case "5":
                 chartLabels =[];
-                this.props.apiData.forEach(elem => chartLabels.push(elem.TIMESTAMP));
+                this.props.apiData.forEach(elem => {
+                    let dateObj = new Date(elem["WORLDTIME"] * 1000);
+                    chartLabels.push(dateObj.toLocaleDateString());
+                });
+                chartData = [];
+                this.props.apiData.forEach(elem => chartData.push(elem.DEATHS_CONTRIBUTED));
+                let chartData_Country = [];
+                this.props.apiData.forEach(elem => chartData_Country.push(elem.DEATHS_COUNTRY));
+                let chartData_World = [];
+                this.props.apiData.forEach(elem => chartData_World.push(elem.DEATHS_WORLDWIDE));
+                
+                
+                new ChartJs.Chart(myChartRef, {
+                    type: "line",
+                    data: {
+                        //Bring in data
+                        labels: chartLabels,
+                        datasets: [{
+                            label: 'DEATHS CONTRIBUTED',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: chartData,
+                            xAxisID: 'x',
+                            yAxisID: 'percent'
+                        }, {
+                            label: 'DEATHS COUNTRY',
+                            borderColor: 'rgb(3, 252, 132)',
+                            data: chartData_Country,
+                            xAxisID: 'x',
+                            yAxisID: 'count'
+                        }, {
+                            label: 'DEATHS WORLDWIDE',
+                            borderColor: 'rgb(132, 3, 252)',
+                            data: chartData_World,
+                            xAxisID: 'x',
+                            yAxisID: 'count'
+                        }],
+
+                    },
+                    options: {
+                        //Customize chart options
+                        interaction: {
+                            mode: 'index'
+                        },
+                        scales: {
+                            x: {
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'Number of Days since Start'
+                                }
+                            },
+                            count: {
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'Confirmed Deaths'
+                                }
+                            },
+                            percent: {
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'Deaths Contributed %'
+                                }
+                            }
+                        }
+                    }
+                });
+                return;
+            case "6":
+                chartLabels =[];
+                this.props.apiData.forEach(elem => {
+                    let dateObj = new Date(elem["TIMESTAMP_ID"] * 1000);
+                    chartLabels.push(dateObj.toLocaleDateString());
+                });
                 chartData = [];
                 this.props.apiData.forEach(elem => chartData.push(elem.CONFIRMED));
+                let chartData_Delta = [];
+                this.props.apiData.forEach(elem => chartData_Delta.push(elem.DELTA_CONFIRMED));
 
                 new ChartJs.Chart(myChartRef, {
                     type: "line",
@@ -172,9 +406,13 @@ export default class DataDisplay extends Component {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'Confirmed cases in china',
+                            label: 'Confirmed Cases',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                        }, {
+                            label: 'Delta_Confirmed',
+                            borderColor: 'rgb(180, 99, 50)',
+                            data: chartData_Delta,
                         }],
 
                     },
@@ -208,11 +446,12 @@ export default class DataDisplay extends Component {
 
     render() {
         const TitleQuery = [
-            `1`,
+            `What are the total cases, total recovered, and total deaths in ${this.props.country1}?`,
             `How much does population density affect COVID-19 transmission rates in ${this.props.country1}?`,
-            `Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a time period`,
-            `How much did COVID-19 affect unemployment rates (population) in ${this.props.country1}?`,
-            `5`];
+            `Compare the difference in deaths with the difference in incidence compared to the previous day for ${this.props.country1} over a time period`,
+            `Unemployment compared to incidence rate by month in ${this.props.country1}?`,
+            `Query 5`,
+            `How many new cases does ${this.props.country1} gain per day?`];
 
         return (
             <div className="auth-wrapper">

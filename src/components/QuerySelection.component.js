@@ -8,7 +8,7 @@ export default class QuerySelection extends Component {
         super(props);
         this.state = {
             toDataDisplay: false,
-            queryNum: 3,
+            queryNum: 0,
             chartData: null,
             country: null,
             start_timestamp: "2020-01-01",
@@ -26,8 +26,8 @@ export default class QuerySelection extends Component {
         await axios.get(`http://localhost:3005/trend-queries/${this.state.queryNum}`, {
             params: {
                 country: this.state.country,
-                start_time: 0, //(new Date(this.state.start_timestamp)).getTime(),
-                end_time: 0 // (new Date(this.state.end_timestamp)).getTime()
+                start_time: (new Date(this.state.start_timestamp)).getTime() / 1000,
+                end_time: (new Date(this.state.end_timestamp)).getTime() / 1000
             }
         }).then((res) => {
             console.log(res.data)
@@ -67,19 +67,22 @@ export default class QuerySelection extends Component {
                         <div style={queryStyle}>
                             <h4>Select query from the following selection</h4>
                             <input type="radio" name="queryNum" value="1" checked={this.state.queryNum === "1"} onChange={this.handleChange}/>
-                            <label htmlFor="query-1">How many cases does REGION gain within TIME PERIOD?</label><br/>
+                            <label htmlFor="query-1">What are the total cases, total recovered, and total deaths in a country?</label><br/>
 
                             <input type="radio" name="queryNum" value="2" checked={this.state.queryNum === "2"} onChange={this.handleChange}/>
                             <label htmlFor="query-2">How much does population density affect COVID-19 transmission rates in a region?</label><br/>
 
                             <input type="radio" name="queryNum" value="3" checked={this.state.queryNum === "3"} onChange={this.handleChange}/>
-                            <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a time period</label><br/>
+                            <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a period of time</label><br/>
 
                             <input type="radio" name="queryNum" value="4" checked={this.state.queryNum === "4"} onChange={this.handleChange}/>
-                            <label htmlFor="query-4">How much did COVID-19 affect unemployment rates (population) in REGION during TIMEPERIOD?</label><br/>
+                            <label htmlFor="query-4">Unemployment compared to incidence rate by month in a particular country</label><br/>
 
                             <input type="radio" name="queryNum" value="5" checked={this.state.queryNum === "5"} onChange={this.handleChange}/>
                             <label htmlFor="query-5">QUERY 5</label><br/>
+
+                            <input type="radio" name="queryNum" value="6" checked={this.state.queryNum === "6"} onChange={this.handleChange}/>
+                            <label htmlFor="query-6">How many new cases does a country gain per day?</label><br/>
 
                             <label>Country</label><br/>
                             <input type="text" name="country" onChange={this.handleChange}/><br/>
