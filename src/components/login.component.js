@@ -3,21 +3,18 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 
 async function loginUser(credentials) {
-    return await axios({
-        method: 'post',
-        url: 'http://localhost:3005/auth/login',
-        responseType: 'json',
-        data: {
-            username: credentials.username,
-            password: credentials.password
-        }
-    }).then((res) => {
-        if (res.data.token === 'true') {
+    return await axios.post('http://localhost:3005/auth/login', null, { params: {
+        username: credentials.username,
+        password: credentials.password
+    }}).then((res) => {
+        console.log(res.data)
+        if (res.data.token === "true") {
             alert("Username/password is valid!");
         } else {
             alert("Username/password is invalid!");
+            return false;
         }
-        return 'true';
+        return true;
     });
 }
 
@@ -32,7 +29,7 @@ export default function Login({ setToken }) {
             username,
             password
         });
-        setToken(token);
+        if (token) setToken(token);
     }
 
     return (
@@ -48,7 +45,7 @@ export default function Login({ setToken }) {
 
                     <div className="form-group">
                         <label>Password</label>
-                        <input name="password" type="password" className="form-control" onChange={e => setPassword(e.target.value)} placeholder="Enter password" />
+                        <input name="password" type="text" className="form-control" onChange={e => setPassword(e.target.value)} placeholder="Enter password" />
                     </div>
 
                     <button type="submit" className="btn btn-primary btn-block">Submit</button>
