@@ -23,11 +23,13 @@ export default class QuerySelection extends Component {
     }
 
     handleSubmit = async (params) => {
+        let start_time = this.state.start_timestamp || '1970-01-01';
+        let end_time = this.state.end_timestamp || '2034-01-01';
         await axios.get(`http://localhost:3005/trend-queries/${this.state.queryNum}`, {
             params: {
                 country: this.state.country,
-                start_time: (new Date(this.state.start_timestamp)).getTime() / 1000,
-                end_time: (new Date(this.state.end_timestamp)).getTime() / 1000
+                start_time: (new Date(start_time)).getTime() / 1000,
+                end_time: (new Date(end_time)).getTime() / 1000
             }
         }).then((res) => {
             console.log(res.data)
@@ -88,9 +90,9 @@ export default class QuerySelection extends Component {
                             <input type="text" name="country" onChange={this.handleChange}/><br/>
 
                             <label>Start Date</label><br/>
-                            <input type="text" name="start_timestamp" onChange={this.handleChange}/><br/>
+                            <input type="text" name="start_timestamp" onChange={this.handleChange} value={this.state.start_timestamp}/><br/>
                             <label>End Date</label><br/>
-                            <input type="text" name="end_timestamp" onChange={this.handleChange}/><br/>
+                            <input type="text" name="end_timestamp" onChange={this.handleChange} value={this.state.end_timestamp}/><br/>
                             <br/>
                         </div>
 
