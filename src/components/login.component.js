@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 
 async function loginUser(credentials) {
-    let response = await axios({
+    return await axios({
         method: 'post',
         url: 'http://localhost:3005/auth/login',
         responseType: 'json',
@@ -12,9 +12,13 @@ async function loginUser(credentials) {
             password: credentials.password
         }
     }).then((res) => {
-
+        if (res.data.token === 'true') {
+            alert("Username/password is valid!");
+        } else {
+            alert("Username/password is invalid!");
+        }
+        return 'true';
     });
-    return await response.data;
 }
 
 
