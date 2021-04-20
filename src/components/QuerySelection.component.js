@@ -79,7 +79,7 @@ export default class QuerySelection extends Component {
                             <label htmlFor="query-4">Unemployment compared to incidence rate by month in a particular country</label><br/>
 
                             <input type="radio" name="queryNum" value="5" checked={this.state.queryNum === "5"} onChange={this.handleChange}/>
-                            <label htmlFor="query-5">QUERY 5</label><br/>
+                            <label htmlFor="query-5">What percentage and number of deaths did a country contribute to worldwide death count during the pandemic?</label><br/>
 
                             <input type="radio" name="queryNum" value="6" checked={this.state.queryNum === "6"} onChange={this.handleChange}/>
                             <label htmlFor="query-6">How many new cases does a country gain per day?</label><br/>

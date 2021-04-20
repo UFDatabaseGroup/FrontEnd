@@ -172,13 +172,17 @@ export default class DataDisplay extends Component {
                             label: 'Difference in Case Incidence To The Previous Day',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                            xAxisID: 'x',
+                            yAxisID: 'incidence'
                         },
-                            {
-                                type: "line",
-                                label: 'Difference in Deaths To The Previous Day',
-                                borderColor: 'rgb(56,93,255)',
-                                data: chartData_death
-                            }],
+                        {
+                            type: "line",
+                            label: 'Difference in Deaths To The Previous Day',
+                            borderColor: 'rgb(56,93,255)',
+                            data: chartData_death,
+                            xAxisID: 'x',
+                            yAxisID: 'deaths'
+                        }],
 
                     },
                     options: {
@@ -186,16 +190,26 @@ export default class DataDisplay extends Component {
                         scales: {
                             x: {
                                 display: true,
+                                position: 'bottom',
                                 title: {
                                     display: true,
                                     text: 'Number of Days since Start'
                                 }
                             },
-                            y: {
+                            incidence: {
                                 display: true,
+                                position: 'left',
                                 title: {
                                     display: true,
-                                    text: 'Total Per 100,000 People'
+                                    text: 'Difference in incidence'
+                                }
+                            },
+                            deaths: {
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'Difference in deaths'
                                 }
                             }
                         }
