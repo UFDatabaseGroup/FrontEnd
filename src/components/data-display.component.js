@@ -387,7 +387,7 @@ export default class DataDisplay extends Component {
             `How much did each state of ${this.props.country1} contribute to the country total?`,
             `Compare the difference in deaths with the difference in incidence compared to the previous day for ${this.props.country1} over a time period`,
             `Unemployment compared to incidence rate by month in ${this.props.country1}?`,
-            `Query 5`,
+            `What percentage of deaths did ${this.props.country1} contribute to the worldwide death count during the pandemic?`,
             `How many new cases does ${this.props.country1} gain per day?`];
 
         return (

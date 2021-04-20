@@ -9,6 +9,16 @@ import QuerySelection from "./components/QuerySelection.component";
 import DataDisplay from "./components/data-display.component";
 import DbInfo from "./components/dbInfo.component";
 
+function WelcomePage() {
+  return (
+  <div className="auth-wrapper">
+            <div className="auth-inner">
+                <h1>Welcome to the COVID-19 Dashboard</h1>
+                <p>To get started please select 'Query Selection' in the top-right corner</p>
+            </div>
+          </div>);
+}
+
 function App() {
   const [token, setToken] = useState(); // eslint-disable-next-line
   const [querySubmitted, SetQuerySubmit] = useState();
@@ -25,7 +35,7 @@ function App() {
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <div className="container">
-          <button disabled className="navbar-brand btn">Group 8</button>
+          <button disabled className="navbar-brand btn">Group 8 - COVID-19 Dashboard</button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
@@ -39,6 +49,8 @@ function App() {
         </div>
       </nav>
 
+      
+      
       <Switch>
         <Route path='/selection'>
           <QuerySelection/>
