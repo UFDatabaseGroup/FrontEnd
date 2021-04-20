@@ -11,8 +11,8 @@ export default class QuerySelection extends Component {
             queryNum: 0,
             chartData: null,
             country: null,
-            start_timestamp: "2020-01-01",
-            end_timestamp: "2020-01-01"
+            start_timestamp: "1970-01-01",
+            end_timestamp: "2034-01-01"
         };
     }
 

@@ -102,7 +102,7 @@ export default class DataDisplay extends Component {
                     }
                 }
 
-                const TENSION_CHOICE = 1;
+                const TENSION_CHOICE = 0;
                 // stole this list off stackoverflow (lol)
                 // https://stackoverflow.com/a/56495465/8323492
                 let lineColors = [
@@ -223,10 +223,14 @@ export default class DataDisplay extends Component {
                             label: 'Unemployed %',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                            xAxisID: 'x',
+                            yAxisID: 'unemployment'
                         }, {
                             label: 'Average Case Incidence',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData_CaseIncidence,
+                            xAxisID: 'x',
+                            yAxisID: 'incidence'
                         }],
 
                     },
@@ -236,16 +240,26 @@ export default class DataDisplay extends Component {
                         scales: {
                             x: {
                                 display: true,
+                                position: 'bottom',
                                 title: {
                                     display: true,
                                     text: 'Dates'
                                 }
                             },
-                            y: {
+                            unemployment: {
                                 display: true,
+                                position: 'right',
                                 title: {
                                     display: true,
-                                    text: 'People Unemployed'
+                                    text: 'People unemployed'
+                                }
+                            },
+                            incidence: {
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'Incidence rate'
                                 }
                             }
                         }
