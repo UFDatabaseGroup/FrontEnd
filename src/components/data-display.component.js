@@ -300,7 +300,7 @@ export default class DataDisplay extends Component {
                         scales: {
                             x: {
                                 display: true,
-                                position: 'left',
+                                position: 'bottom',
                                 title: {
                                     display: true,
                                     text: 'Number of Days since Start'
@@ -343,31 +343,49 @@ export default class DataDisplay extends Component {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'Confirmed Cases',
+                            label: 'Total confirmed cases count',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
+                            xAxisID: 'x',
+                            yAxisID: 'count'
                         }, {
-                            label: 'Delta_Confirmed',
+                            label: 'New cases',
                             borderColor: 'rgb(180, 99, 50)',
                             data: chartData_Delta,
+                            xAxisID: 'x',
+                            yAxisID: 'delta'
                         }],
 
                     },
                     options: {
                         //Customize chart options
+                        interaction: { mode: 'index' },
+                        elements: {
+                            point: { radius: 2 }
+                        },
                         scales: {
                             x: {
                                 display: true,
+                                position: 'bottom',
                                 title: {
                                     display: true,
-                                    text: 'Number of Days since Start'
+                                    text: 'Number of days since start'
                                 }
                             },
-                            y: {
+                            count: {
                                 display: true,
+                                position: 'left',
                                 title: {
                                     display: true,
-                                    text: 'Confirmed Cases'
+                                    text: 'Total cases'
+                                }
+                            },
+                            delta: {
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'New cases per day'
                                 }
                             }
                         }

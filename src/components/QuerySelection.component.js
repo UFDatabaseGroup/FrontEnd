@@ -70,7 +70,7 @@ export default class QuerySelection extends Component {
                             <label htmlFor="query-1">What are the total cases, total recovered, and total deaths in a country?</label><br/>
 
                             <input type="radio" name="queryNum" value="2" checked={this.state.queryNum === "2"} onChange={this.handleChange}/>
-                            <label htmlFor="query-2">How much does population density affect COVID-19 transmission rates in a region?</label><br/>
+                            <label htmlFor="query-2">How much did each of the top 10 states, based on case count for a certain time period, contribute to the country's overall case count?</label><br/>
 
                             <input type="radio" name="queryNum" value="3" checked={this.state.queryNum === "3"} onChange={this.handleChange}/>
                             <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a period of time</label><br/>
