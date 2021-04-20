@@ -66,155 +66,91 @@ export default class DataDisplay extends Component {
                     }
                 });
                 break;
-            case "2":
+            case "2": {
                 /*
-                * query 2: top 10 states in a country and the percent of active cases they have compared to the whole country
-                * display: multiple line graph on active_percent for each state in the top 10 over time
-                * */
-                let states = [];
-                chartLabels = [];
+                 * query 2: top 10 states in a country and the percent of active cases they have compared to the whole country
+                 * display: multiple line graph on active_percent for each state in the top 10 over time
+                 */
+                /** @type {Map<number, Map<string, number>>} */
+                let byTime = new Map();
+                let statesData = new Map();
 
-                // Find List of States
-                this.props.apiData.forEach (elem => {
-                    if (states.indexOf(elem["STATE"]) === -1) states.push(elem['STATE']);
-                    let dateObj = new Date(elem["TIMESTAMP_ID"] * 1000);
-                    chartLabels.push(dateObj.toLocaleDateString());
-                });
-
-                console.log(new Date(chartLabels[chartLabels.length - 2]).getTime())
-
-                //this.props.apiData.forEach(elem => {});
-
-                let chartData_State1 = [];
-                let chartData_State2 = [];
-                let chartData_State3 = [];
-                let chartData_State4 = [];
-                let chartData_State5 = [];
-                let chartData_State6 = [];
-                let chartData_State7 = [];
-                let chartData_State8 = [];
-                let chartData_State9 = [];
-                let chartData_State10 = [];
-                this.props.apiData.forEach(elem => {
-                    switch (elem["STATE"]) {
-                        case states[0]:
-                            chartData_State1.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[1]:
-                            chartData_State2.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[2]:
-                            chartData_State3.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[3]:
-                            chartData_State4.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[4]:
-                            chartData_State5.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[5]:
-                            chartData_State6.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[6]:
-                            chartData_State7.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[7]:
-                            chartData_State8.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[8]:
-                            chartData_State9.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        case states[9]:
-                            chartData_State10.push(elem["ACTIVE_PERCENT"]);
-                            break;
-                        default:
-                            console.log(`UNKNOWN STATE FOUND IN API RESPONSE - ${elem["STATE"]}`)
-                            break;
+                for (let row of this.props.apiData) {
+                    // layout to (time, states)
+                    let timePoint = byTime.get(row.TIMESTAMP_ID);
+                    if (timePoint) {
+                        timePoint.set(row.STATE, row.ACTIVE_PERCENT);
+                    } else {
+                        let stateMap = new Map([[row.STATE, row.ACTIVE_PERCENT]]);
+                        byTime.set(row.TIMESTAMP_ID, stateMap);
                     }
-                });
 
+                    // also find all states
+                    if (!statesData.has(row.STATE)) statesData.set(row.STATE, []);
+                }
 
-                let tension_choice = 1;
+                // unroll to array and sort
+                let byTimeUnrolled = [...byTime.entries()].sort((a, b) => a[0] - b[0]);
+
+                // generate x axis
+                let xSeries = byTimeUnrolled.map(a => new Date(a[0] * 1000).toLocaleDateString());
+
+                // generate state series
+                for (let [_time, states] of byTimeUnrolled) {
+                    for (let [state, stateSeries] of statesData) {
+                        stateSeries.push(states.get(state));
+                    }
+                }
+
+                const TENSION_CHOICE = 1;
+                // stole this list off stackoverflow (lol)
+                // https://stackoverflow.com/a/56495465/8323492
+                let lineColors = [
+                    '#3366cc', '#dc3912', '#ff9900', '#109618', '#990099',
+                    '#0099c6', '#dd4477', '#66aa00', '#b82e2e', '#316395'
+                ];
+
+                let datasets = [...statesData.entries()].map(([state, series]) => ({
+                    label: '% cases in ' + state,
+                    backgroundColor: lineColors.pop(),
+                    data: series,
+                    tension: TENSION_CHOICE
+                }));
 
                 new ChartJs.Chart(myChartRef, {
                     type: "line",
                     data: {
                         //Bring in data
-                        labels: chartLabels,
-                        datasets: [{
-                            label: `Active Case % In ${states[0]}`,
-                            backgroundColor: 'rgb(217,165,137)',
-                            data: chartData_State1,
-                            tension: tension_choice,
-                        }, {
-                            label: `Active Case % In ${states[1]}`,
-                            backgroundColor: 'rgb(139,213,211)',
-                            data: chartData_State2,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[2]}`,
-                            backgroundColor: 'rgb(107,224,104)',
-                            data: chartData_State3,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[3]}`,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            data: chartData_State4,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[4]}`,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            data: chartData_State5,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[5]}`,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            data: chartData_State6,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[6]}`,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            data: chartData_State7,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[7]}`,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            data: chartData_State8,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[8]}`,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            data: chartData_State9,
-                            tension: tension_choice
-                        }, {
-                            label: `Active Case % In ${states[9]}`,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            data: chartData_State10,
-                            tension: tension_choice
-                        }],
+                        labels: xSeries,
+                        datasets
                     },
                     options: {
                         //Customize chart options
+                        interaction: { mode: 'index' },
                         spanGaps: true,
                         scales: {
                             x: {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Dates'
+                                    text: 'Time'
                                 }
                             },
                             y: {
                                 display: true,
                                 title: {
                                     display: true,
-                                    text: 'Active Cases Percent (%)'
+                                    text: 'Active cases as % of all country cases'
                                 }
                             }
+                        },
+                        elements: {
+                            point: { radius: 2 }
                         }
                     }
                 });
                 return;
+            }
             case "3":
                 chartLabels =[];
                 this.props.apiData.forEach(elem => {
@@ -296,6 +232,7 @@ export default class DataDisplay extends Component {
                     },
                     options: {
                         //Customize chart options
+                        interaction: { mode: 'index' },
                         scales: {
                             x: {
                                 display: true,
@@ -447,7 +384,7 @@ export default class DataDisplay extends Component {
     render() {
         const TitleQuery = [
             `What are the total cases, total recovered, and total deaths in ${this.props.country1}?`,
-            `How much does population density affect COVID-19 transmission rates in ${this.props.country1}?`,
+            `How much did each state of ${this.props.country1} contribute to the country total?`,
             `Compare the difference in deaths with the difference in incidence compared to the previous day for ${this.props.country1} over a time period`,
             `Unemployment compared to incidence rate by month in ${this.props.country1}?`,
             `Query 5`,
