@@ -6,9 +6,14 @@ async function loginUser(credentials) {
     let response = await axios({
         method: 'post',
         url: 'http://localhost:3005/auth/login',
-        responseType: 'json'
-    })
+        responseType: 'json',
+        data: {
+            username: credentials.username,
+            password: credentials.password
+        }
+    }).then((res) => {
 
+    });
     return await response.data;
 }
 

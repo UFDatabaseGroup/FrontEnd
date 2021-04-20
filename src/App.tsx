@@ -39,7 +39,7 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link className="nav-link" to={"/selection"}>Query Selection</Link>
+                <Link className="nav-link" to={"/"}>Query Selection</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to={"/dbInfo"}>DB Info</Link>
@@ -52,7 +52,7 @@ function App() {
       
       
       <Switch>
-        <Route path='/selection'>
+        <Route path='/'>
           <QuerySelection/>
         </Route>
         <Route path="/sign-up">

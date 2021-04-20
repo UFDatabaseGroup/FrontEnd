@@ -73,13 +73,13 @@ export default class QuerySelection extends Component {
                             <label htmlFor="query-2">How much did each of the top 10 states, based on case count for a certain time period, contribute to the country's overall case count?</label><br/>
 
                             <input type="radio" name="queryNum" value="3" checked={this.state.queryNum === "3"} onChange={this.handleChange}/>
-                            <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a period of time</label><br/>
+                            <label>Compare the difference in deaths with the difference in incidence compared to the previous day for a region over a period of time.</label><br/>
 
                             <input type="radio" name="queryNum" value="4" checked={this.state.queryNum === "4"} onChange={this.handleChange}/>
-                            <label htmlFor="query-4">Unemployment compared to incidence rate by month in a particular country</label><br/>
+                            <label htmlFor="query-4">How does case incidence rate affect unemployment rate by month per country?</label><br/>
 
                             <input type="radio" name="queryNum" value="5" checked={this.state.queryNum === "5"} onChange={this.handleChange}/>
-                            <label htmlFor="query-5">QUERY 5</label><br/>
+                            <label htmlFor="query-5">What percentage and number of deaths did a country contribute to worldwide death count during the pandemic?</label><br/>
 
                             <input type="radio" name="queryNum" value="6" checked={this.state.queryNum === "6"} onChange={this.handleChange}/>
                             <label htmlFor="query-6">How many new cases does a country gain per day?</label><br/>
