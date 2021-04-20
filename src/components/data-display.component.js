@@ -235,13 +235,13 @@ export default class DataDisplay extends Component {
                         labels: chartLabels,
                         datasets: [{
                             label: 'Unemployed %',
-                            borderColor: 'rgb(255, 99, 132)',
+                            borderColor: '#3366cc',
                             data: chartData,
                             xAxisID: 'x',
                             yAxisID: 'unemployment'
                         }, {
                             label: 'Average Case Incidence',
-                            borderColor: 'rgb(255, 99, 132)',
+                            borderColor: '#dc3912',
                             data: chartData_CaseIncidence,
                             xAxisID: 'x',
                             yAxisID: 'incidence'
