@@ -143,6 +143,9 @@ export default class DataDisplay extends Component {
                                     text: 'Active cases as % of all country cases'
                                 }
                             }
+                        },
+                        elements: {
+                            point: { radius: 2 }
                         }
                     }
                 });
