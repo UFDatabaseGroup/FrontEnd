@@ -45,7 +45,7 @@ export default function Login({ setToken }) {
 
                     <div className="form-group">
                         <label>Password</label>
-                        <input name="password" type="text" className="form-control" onChange={e => setPassword(e.target.value)} placeholder="Enter password" />
+                        <input name="password" type="password" className="form-control" onChange={e => setPassword(e.target.value)} placeholder="Enter password" />
                     </div>
 
                     <button type="submit" className="btn btn-primary btn-block">Submit</button>
