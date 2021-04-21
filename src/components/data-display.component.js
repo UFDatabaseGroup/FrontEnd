@@ -233,7 +233,7 @@ export default class DataDisplay extends Component {
                 chartData = [];
                 this.props.apiData.forEach(elem => chartData.push(elem.VALUE));
                 let chartData_CaseIncidence = [];
-                this.props.apiData.forEach(elem => chartData_CaseIncidence.push(elem["AVG(CONFIRMED)"]));
+                this.props.apiData.forEach(elem => chartData_CaseIncidence.push(elem["AVG(ACTIVE)"]));
 
 
                 new ChartJs.Chart(myChartRef, {
@@ -248,11 +248,11 @@ export default class DataDisplay extends Component {
                             xAxisID: 'x',
                             yAxisID: 'unemployment'
                         }, {
-                            label: 'Average confirmed cases',
+                            label: 'Average active cases',
                             borderColor: '#dc3912',
                             data: chartData_CaseIncidence,
                             xAxisID: 'x',
-                            yAxisID: 'confirmed'
+                            yAxisID: 'active'
                         }],
 
                     },
@@ -276,12 +276,12 @@ export default class DataDisplay extends Component {
                                     text: 'People unemployed'
                                 }
                             },
-                            confirmed: {
+                            active: {
                                 display: true,
                                 position: 'left',
                                 title: {
                                     display: true,
-                                    text: 'Confirmed'
+                                    text: 'Active cases'
                                 }
                             }
                         }
@@ -440,7 +440,7 @@ export default class DataDisplay extends Component {
             `What are the total cases, total recovered, and total deaths in ${this.props.country1}?`,
             `How much did each state of ${this.props.country1} contribute to the country total?`,
             `Compare new cases and deaths per day for ${this.props.country1} over a time period`,
-            `Unemployment compared to confirmed cases by month in ${this.props.country1}`,
+            `Unemployment compared to active cases by month in ${this.props.country1}`,
             `What percentage of deaths did ${this.props.country1} contribute to the worldwide death count during the pandemic?`,
             `How many new cases does ${this.props.country1} gain per day?`];
 
@@ -455,6 +455,7 @@ export default class DataDisplay extends Component {
                         width="800"
                         height="450"
                     />
+                    <p style={{ fontSize: 12 }}>{this.props.apiData.length} rows fetched</p>
                 </div>
             </div>
         );

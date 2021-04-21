@@ -78,7 +78,7 @@ export default class QuerySelection extends Component {
                             <label>Compare new cases and deaths per day for a region over a period of time.</label><br/>
 
                             <input type="radio" name="queryNum" value="4" checked={this.state.queryNum === "4"} onChange={this.handleChange}/>
-                            <label htmlFor="query-4">How does the confirmed cases count affect unemployment rate by month per country?</label><br/>
+                            <label htmlFor="query-4">How does the active cases count affect unemployment rate by month per country?</label><br/>
 
                             <input type="radio" name="queryNum" value="5" checked={this.state.queryNum === "5"} onChange={this.handleChange}/>
                             <label htmlFor="query-5">What percentage and number of deaths did a country contribute to worldwide death count during the pandemic?</label><br/>
