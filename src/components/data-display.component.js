@@ -47,6 +47,10 @@ export default class DataDisplay extends Component {
                     },
                     options: {
                         //Customize chart options
+                        interaction: { mode: 'index' },
+                        elements: {
+                            point: { radius: 2 }
+                        },
                         scales: {
                             x: {
                                 display: true,
@@ -186,6 +190,10 @@ export default class DataDisplay extends Component {
 
                     },
                     options: {
+                        interaction: { mode: 'index' },
+                        elements: {
+                            line: { borderWidth: 2 }
+                        },
                         //Customize chart options
                         scales: {
                             x: {
