@@ -158,7 +158,7 @@ export default class DataDisplay extends Component {
                     chartLabels.push(dateObj.toLocaleDateString());
                 });
                 chartData = [];
-                this.props.apiData.forEach(elem => chartData.push(elem.TOTAL_INCIDENCE));
+                this.props.apiData.forEach(elem => chartData.push(elem.CONFIRMED_DIFFERENCE));
 
                 let chartData_death = [];
                 this.props.apiData.forEach(elem => chartData_death.push(elem.DEATH_DIFFERENCES));
@@ -169,7 +169,7 @@ export default class DataDisplay extends Component {
                         labels: chartLabels,
                         datasets: [{
                             type: "line",
-                            label: 'Difference in Case Incidence To The Previous Day',
+                            label: 'New cases per day',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
                             xAxisID: 'x',
@@ -177,7 +177,7 @@ export default class DataDisplay extends Component {
                         },
                         {
                             type: "line",
-                            label: 'Difference in Deaths To The Previous Day',
+                            label: 'New deaths per day',
                             borderColor: 'rgb(56,93,255)',
                             data: chartData_death,
                             xAxisID: 'x',
@@ -201,7 +201,7 @@ export default class DataDisplay extends Component {
                                 position: 'left',
                                 title: {
                                     display: true,
-                                    text: 'Difference in incidence'
+                                    text: 'Cases'
                                 }
                             },
                             deaths: {
@@ -209,7 +209,7 @@ export default class DataDisplay extends Component {
                                 position: 'right',
                                 title: {
                                     display: true,
-                                    text: 'Difference in deaths'
+                                    text: 'Deaths'
                                 }
                             }
                         }
@@ -225,7 +225,7 @@ export default class DataDisplay extends Component {
                 chartData = [];
                 this.props.apiData.forEach(elem => chartData.push(elem.VALUE));
                 let chartData_CaseIncidence = [];
-                this.props.apiData.forEach(elem => chartData_CaseIncidence.push(elem["AVG(AVG_INCIDENCE)"]));
+                this.props.apiData.forEach(elem => chartData_CaseIncidence.push(elem["AVG(CONFIRMED)"]));
 
 
                 new ChartJs.Chart(myChartRef, {
@@ -240,11 +240,11 @@ export default class DataDisplay extends Component {
                             xAxisID: 'x',
                             yAxisID: 'unemployment'
                         }, {
-                            label: 'Average Case Incidence',
+                            label: 'Average confirmed cases',
                             borderColor: '#dc3912',
                             data: chartData_CaseIncidence,
                             xAxisID: 'x',
-                            yAxisID: 'incidence'
+                            yAxisID: 'confirmed'
                         }],
 
                     },
@@ -268,12 +268,12 @@ export default class DataDisplay extends Component {
                                     text: 'People unemployed'
                                 }
                             },
-                            incidence: {
+                            confirmed: {
                                 display: true,
                                 position: 'left',
                                 title: {
                                     display: true,
-                                    text: 'Incidence rate'
+                                    text: 'Confirmed'
                                 }
                             }
                         }
@@ -431,8 +431,8 @@ export default class DataDisplay extends Component {
         const TitleQuery = [
             `What are the total cases, total recovered, and total deaths in ${this.props.country1}?`,
             `How much did each state of ${this.props.country1} contribute to the country total?`,
-            `Compare the difference in deaths with the difference in incidence compared to the previous day for ${this.props.country1} over a time period`,
-            `Unemployment compared to incidence rate by month in ${this.props.country1}?`,
+            `Compare new cases and deaths per day for ${this.props.country1} over a time period`,
+            `Unemployment compared to confirmed cases by month in ${this.props.country1}`,
             `What percentage of deaths did ${this.props.country1} contribute to the worldwide death count during the pandemic?`,
             `How many new cases does ${this.props.country1} gain per day?`];
 
