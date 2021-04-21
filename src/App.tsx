@@ -21,14 +21,9 @@ function WelcomePage() {
 
 function App() {
   const [token, setToken] = useState(); // eslint-disable-next-line
-  const [querySubmitted, SetQuerySubmit] = useState();
 
   if(!token) {
     return <Login setToken={setToken}/>
-  }
-
-  if(querySubmitted) {
-    return <QuerySelection/>
   }
 
   return (
@@ -42,7 +37,7 @@ function App() {
                 <Link className="nav-link" to={"/"}>Query Selection</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={"/dbInfo"}>DB Info</Link>
+                <Link className="nav-link" to={"/db-info"}>DB Info</Link>
               </li>
             </ul>
           </div>
@@ -52,17 +47,11 @@ function App() {
       
       
       <Switch>
+        <Route path="/db-info">
+          <DbInfo/>
+        </Route>
         <Route path='/'>
           <QuerySelection/>
-        </Route>
-        <Route path="/sign-up">
-          <SignUp/>
-        </Route>
-        <Route path="/trend-query">
-          <DataDisplay/>
-        </Route>
-        <Route path="/dbInfo">
-          <DbInfo/>
         </Route>
       </Switch>
     </div>
