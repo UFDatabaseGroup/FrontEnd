@@ -308,7 +308,7 @@ export default class DataDisplay extends Component {
                         //Bring in data
                         labels: chartLabels,
                         datasets: [{
-                            label: 'DEATHS CONTRIBUTED',
+                            label: '% DEATHS CONTRIBUTED',
                             borderColor: 'rgb(255, 99, 132)',
                             data: chartData,
                             xAxisID: 'x',
